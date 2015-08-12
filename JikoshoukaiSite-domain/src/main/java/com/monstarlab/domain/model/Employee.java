@@ -3,6 +3,9 @@ package com.monstarlab.domain.model;
 import java.util.Date;
 
 public class Employee {
+	//variable for id
+	private String employeeId;
+	
 	// variable for surname
 	private String surName;
 
@@ -23,6 +26,15 @@ public class Employee {
 
 	// variable for self-description
 	private String selfIntroduction;
+	
+
+	public String getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
+	}
 
 	public String getSurName() {
 		return surName;

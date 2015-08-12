@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Title: JikoshoukaiSite-initdb
+Implementation-Version: 1.0.0-SNAPSHOT
+Built-By: rozario.shovon
+Implementation-Vendor-Id: com.monstarlab
+Build-Jdk: 1.8.0_25
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: TERASOLUNA Framework Team
+

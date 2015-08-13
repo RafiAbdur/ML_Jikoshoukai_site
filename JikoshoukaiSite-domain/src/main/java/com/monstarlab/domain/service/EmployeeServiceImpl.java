@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.monstarlab.domain.form.SearchEmployeeForm;
 import com.monstarlab.domain.model.Employee;
 import com.monstarlab.domain.repository.EmployeeRepository;
 
@@ -87,6 +88,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public void delete(String employeeId) {
 		employeeRepository.delete(employeeId);
+	}
+
+	@Override
+	public Page<Employee> search(SearchEmployeeForm searchEmployeeForm, Pageable pageable) {
+		System.out.println("In service" + searchEmployeeForm.getEmployee().getName());
+		return employeeRepository.search(searchEmployeeForm.getEmployee().getName(), searchEmployeeForm.getEmployee().getSurName(), pageable);
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.monstarlab.domain.form.SearchEmployeeForm;
 import com.monstarlab.domain.model.Employee;
 
 public interface EmployeeService {
@@ -56,5 +57,7 @@ public interface EmployeeService {
 	 * @param employeeId
 	 */
 	void delete(String employeeId);
+
+	public Page<Employee> search(SearchEmployeeForm searchEmployeeForm, Pageable pageable);
 	
 }

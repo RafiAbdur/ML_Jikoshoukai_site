@@ -5,7 +5,7 @@
 		<h3>Search Employee</h3>
 
 		<t:messagesPanel />
-		<form:form action="${pageContext.request.contextPath}/docreate"
+		<form:form action="${pageContext.request.contextPath}/search"
 			method="post" modelAttribute="searchEmployeeForm">
 
 			<label>Name</label>

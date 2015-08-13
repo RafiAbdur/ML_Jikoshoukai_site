@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.monstarlab.app.form.EmployeeInfoInputForm;
 import com.monstarlab.app.form.SearchEmployeeForm;
 
 @Controller
@@ -33,6 +34,7 @@ public class EmployeeController {
 	@RequestMapping(value = "/create")
 	public String createEmployee(Model model) {
 		model.addAttribute("headerTitle", "Add new employee");
+		model.addAttribute("employeeInfoInputForm", new EmployeeInfoInputForm());
 		return "employee/employee_info_input";
 	}
 	
@@ -42,6 +44,7 @@ public class EmployeeController {
 	@RequestMapping(value = "/edit")
 	public String editEmployee(Model model) {
 		model.addAttribute("headerTitle", "Edit employee");
+		model.addAttribute("employeeInfoInputForm", new EmployeeInfoInputForm());
 		return "employee/employee_info_input";
 	}
 
@@ -49,5 +52,11 @@ public class EmployeeController {
 	public String creationComplete(Model model) {
 		
 		return "redirect:/welcome/home";
+	}
+	
+	@RequestMapping(value = "/doedit", method = RequestMethod.POST)
+	public String editComplete(Model model) {
+		
+		return "redirect:/employee/employee_info_input";
 	}
 }

@@ -19,7 +19,7 @@ public class Employee {
 	private String nameKana;
 
 	// variable for gender
-	private char gender;
+	private String gender;
 
 	// variable for birthdate
 	private Date birthdate;
@@ -68,11 +68,11 @@ public class Employee {
 		this.nameKana = nameKana;
 	}
 
-	public char getGender() {
+	public String getGender() {
 		return gender;
 	}
 
-	public void setGender(char gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
 

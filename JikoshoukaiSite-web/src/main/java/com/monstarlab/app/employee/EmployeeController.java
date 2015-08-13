@@ -8,35 +8,37 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.monstarlab.app.form.SearchEmployeeForm;
 
 @Controller
 public class EmployeeController {
 	private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 
 	/**
-	 * Simply selects the home view to render by returning its name.
+	 * Returns page U0010
 	 */
 	@RequestMapping(value = "/", method = { RequestMethod.GET, RequestMethod.POST })
 	public String home(Model model) {
-
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
-
-		String formattedDate = dateFormat.format(date);
-
-		model.addAttribute("serverTime", formattedDate);
-
+		model.addAttribute("searchEmployeeForm", new SearchEmployeeForm());
 		return "welcome/home";
 	}
 
+	/**
+	 * Returns page U0020
+	 */
 	@RequestMapping(value = "/create")
 	public String createEmployee(Model model) {
 		model.addAttribute("headerTitle", "Add new employee");
 		return "employee/employee_info_input";
 	}
 	
+	/**
+	 * Returns page U0030
+	 */
 	@RequestMapping(value = "/edit")
 	public String editEmployee(Model model) {
 		model.addAttribute("headerTitle", "Edit employee");

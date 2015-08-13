@@ -2,32 +2,51 @@ package com.monstarlab.domain.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
+@Table(name = "employee")
 public class Employee {
-	//variable for id
+
+	// variable for id
+	@Id
 	private String employeeId;
-	
+
 	// variable for surname
+	@Column(name = "surname")
 	private String surName;
 
 	// variable for name
+	@Column(name = "name")
 	private String name;
 
 	// variable for surname in kana
+	@Column(name = "surname_kana")
 	private String surNameKana;
 
 	// variable for name in kana
+	@Column(name = "name_kana")
 	private String nameKana;
 
 	// variable for gender
+	@Column(name = "gender")
 	private String gender;
 
 	// variable for birthdate
+	@Temporal(TemporalType.DATE)
+	@Column(name = "birthdate")
 	private Date birthdate;
 
 	// variable for self-description
+	@Column(name = "self_introduction")
 	private String selfIntroduction;
-	
 
+	
 	public String getEmployeeId() {
 		return employeeId;
 	}

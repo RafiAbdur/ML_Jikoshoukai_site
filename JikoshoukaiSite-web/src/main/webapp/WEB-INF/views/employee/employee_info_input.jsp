@@ -10,37 +10,44 @@
 			
 			<form:hidden path="employee.employeeId"/>
 			
-			<label>Name</label>
-			<form:input path="employee.name" />
-			<form:errors path="employee.name"></form:errors>
-			<br>
-
-			<label>Surname</label>
+			<label>姓（全角）</label>
 			<form:input path="employee.surName" />
 			<form:errors path="employee.surName" />
 			<br>
-
-			<label>Name (Kana)</label>
-			<form:input path="employee.nameKana" />
-			<form:errors path="employee.nameKana" />
 			<br>
-
-			<label>Surname (Kana)</label>
+			
+			<label>名（全角）</label>
+			<form:input path="employee.name" />
+			<form:errors path="employee.name"></form:errors>
+			<br>
+			<br>
+			
+			<label>姓（カナ）</label>
 			<form:input path="employee.surNameKana" />
 			<form:errors path="employee.surNameKana" />
 			<br>
+			<br>
 
-			<label>Gender</label>
+			<label>名（カナ）</label>
+			<form:input path="employee.nameKana" />
+			<form:errors path="employee.nameKana" />
+			<br>
+			<br>
+
+			<label>性別</label>
 			<form:select path="employee.gender"
 				items="${employeeInfoInputForm.getGenderList()}" />
 			<br>
-
-
-			<label>BirthDay </label>
-			<form:input path="birthdate" id="birthdate" />
 			<br>
 
-			<label>Self-introduction</label>
+
+			<label>生年月日 </label>
+			<form:input path="birthdate" id="birthdate" />
+			<br>
+			<br>
+
+			<label>自己紹介</label>
+			<br>
 			<form:textarea rows="4" cols="50" maxlength="50"
 				path="employee.selfIntroduction" value="" />
 			<form:errors path="employee.selfIntroduction" />

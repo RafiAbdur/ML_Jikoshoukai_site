@@ -29,7 +29,7 @@
 		<tiles:insertAttribute name="body" />
 		<hr>
 		<p style="text-align: center; background: #e5eCf9;">Copyright
-			&copy; 20XX CompanyName</p>
+			&copy; 2015 Monstar Lab Inc.</p>
 	</div>
 </body>
 

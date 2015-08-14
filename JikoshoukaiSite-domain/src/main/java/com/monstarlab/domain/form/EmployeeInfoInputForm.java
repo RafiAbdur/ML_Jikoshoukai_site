@@ -1,4 +1,4 @@
-package com.monstarlab.app.form;
+package com.monstarlab.domain.form;
 
 import java.io.Serializable;
 import java.util.Arrays;

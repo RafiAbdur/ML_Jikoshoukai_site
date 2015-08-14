@@ -27,7 +27,7 @@ CREATE TABLE `employee` (
   `surname_kana` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `name_kana` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `gender` char(5) COLLATE utf8_unicode_ci NOT NULL,
-  `bithdate` date NOT NULL,
+  `birthdate` date NOT NULL,
   `self_introduction` varchar(50) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

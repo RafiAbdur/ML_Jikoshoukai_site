@@ -1,5 +1,9 @@
 package com.monstarlab.app.employee;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -38,7 +42,7 @@ public class EmployeeController {
 	 */
 	@RequestMapping(value = "/", method = { RequestMethod.GET, RequestMethod.POST })
 	public String home(
-			@PageableDefault(page = 0, size = 2, direction = Direction.DESC, sort = "employeeId") Pageable pageable,
+			@PageableDefault(page = 0, size = 20, direction = Direction.DESC, sort = "employeeId") Pageable pageable,
 			Model model) {
 		// Add form class for searching employee
 		model.addAttribute("searchEmployeeForm", new SearchEmployeeForm());
@@ -63,7 +67,7 @@ public class EmployeeController {
 	 */
 	@RequestMapping(value = "/search", method = { RequestMethod.GET, RequestMethod.POST })
 	public String searchEmployee(
-			@PageableDefault(page = 0, size = 2, direction = Direction.DESC, sort = "employeeId") Pageable pageable,
+			@PageableDefault(page = 0, size = 20, direction = Direction.DESC, sort = "employeeId") Pageable pageable,
 			Model model, SearchEmployeeForm searchEmployeeForm, BindingResult bindingResult,
 			RedirectAttributes attributes) {
 		Page<Employee> page = employeeService.search(searchEmployeeForm, pageable);
@@ -85,6 +89,31 @@ public class EmployeeController {
 		return "employee/employee_info_input";
 	}
 
+	/**
+	 * Controleer-method complete creation of the new employee
+	 * 
+	 * @param model
+	 * @return Forward link towards home page (U0010)
+	 */
+	@RequestMapping(value = "/docreate", method = RequestMethod.POST)
+	public String creationComplete(Model model, EmployeeInfoInputForm employeeInfoForm, BindingResult bindingResult,
+			RedirectAttributes redirectAttributes) {
+		
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+		Employee employee = employeeInfoForm.getEmployee();
+		
+		
+		try {
+			Date date = formatter.parse(employeeInfoForm.getBirthdate());
+			employee.setBirthdate(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		System.out.println("in controller" + employee);
+		employeeService.create(employeeInfoForm.getEmployee());
+		return "redirect:/";
+	}
 
 	/**
 	 * Controller home (page:U0010)
@@ -102,21 +131,9 @@ public class EmployeeController {
 		return "employee/employee_info_input";
 	}
 
-	/**
-	 * Controleer-method complete creation of the new employee
-	 * 
-	 * @param model
-	 * @return Forward link towards home page (U0010)
-	 */
-	@RequestMapping(value = "/docreate", method = RequestMethod.POST)
-	public String creationComplete(Model model) {
-		
-		return "redirect:/welcome/home";
-	}
-	
 	@RequestMapping(value = "/doedit", method = RequestMethod.POST)
 	public String editComplete(Model model) {
-		
+
 		return "redirect:/employee/employee_info_input";
 	}
 }

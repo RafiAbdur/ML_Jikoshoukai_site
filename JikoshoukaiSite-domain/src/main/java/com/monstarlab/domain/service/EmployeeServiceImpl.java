@@ -1,6 +1,7 @@
 package com.monstarlab.domain.service;
 
 import java.util.Collection;
+import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -66,6 +67,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	 */
 	@Override
 	public Employee create(Employee employee) {
+		
+		employee.setEmployeeId(UUID.randomUUID().toString());
+		System.out.println("in kana " + employee.getNameKana());
 		return employeeRepository.save(employee);
 	}
 

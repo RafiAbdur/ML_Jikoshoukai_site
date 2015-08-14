@@ -33,23 +33,29 @@
 				items="${employeeInfoInputForm.getGenderList()}" />
 			<br>
 
+
 			<label>BirthDay </label>
-			<form:input path="birthYear" value="" />
-			<form:errors path="birthYear" />
-			<label>Year</label>
-			<form:input path="birthMonth" value="" />
-			<form:errors path="birthMonth" />
-			<label>Month</label>
-			<form:input path="birthDate" value="" />
-			<form:errors path="birthDate" />
-			<label>Day</label>
+			<form:input path="birthdate" id="birthdate" />
 			<br>
 
 			<label>Self-introduction</label>
 			<form:textarea rows="4" cols="50" maxlength="50"
-				path="selfIntroduction" value="" />
-			<form:errors path="selfIntroduction" />
+				path="employee.selfIntroduction" value="" />
+			<form:errors path="employee.selfIntroduction" />
 			<br>
+
+			
+
+			<script>
+				$(document).ready(function() {
+					$(function() {
+						$("#birthdate").datepicker({
+							dateFormat: "yy-mm-dd"
+						});
+						
+					});
+				});
+			</script>
 
 			<input type="submit" value="Back" />
 			<input type="submit" value="Update" />

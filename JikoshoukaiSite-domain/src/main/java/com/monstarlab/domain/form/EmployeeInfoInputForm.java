@@ -21,7 +21,7 @@ public class EmployeeInfoInputForm implements Serializable {
 	private List<String> genderList;
 
 	public EmployeeInfoInputForm() {
-		genderList = Arrays.asList("Male", "Female");
+		genderList = Arrays.asList("M", "F");
 	}
 
 	public Employee getEmployee() {

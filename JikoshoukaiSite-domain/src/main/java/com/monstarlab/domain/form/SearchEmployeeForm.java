@@ -20,7 +20,7 @@ public class SearchEmployeeForm implements Serializable {
 	private List<String> genderList;
 	
 	public SearchEmployeeForm(){
-		genderList = Arrays.asList("Male", "Female");
+		genderList = Arrays.asList("M", "F");
 	}
 	
 	public Employee getEmployee() {

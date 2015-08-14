@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.terasoluna.gfw.common.message.ResultMessage;
+import org.terasoluna.gfw.common.message.ResultMessages;
 
 import com.monstarlab.domain.form.EmployeeInfoInputForm;
 import com.monstarlab.domain.form.SearchEmployeeForm;
@@ -69,10 +71,11 @@ public class EmployeeController {
 	@RequestMapping(value = "/search", method = { RequestMethod.GET, RequestMethod.POST })
 	public String searchEmployee(
 			@PageableDefault(page = 0, size = 20, direction = Direction.DESC, sort = "employeeId") Pageable pageable,
-			Model model, SearchEmployeeForm searchEmployeeForm, BindingResult bindingResult,
-			RedirectAttributes attributes) {
+			Model model, SearchEmployeeForm searchEmployeeForm, BindingResult bindingResult) {
 		Page<Employee> page = employeeService.search(searchEmployeeForm, pageable);
 		model.addAttribute("page", page);
+		String searchResultMessage = page.getTotalElements() + " results found from your search.";
+		model.addAttribute("searchResultMessage", searchResultMessage);
 		return "welcome/home";
 	}
 
@@ -103,11 +106,12 @@ public class EmployeeController {
 		Employee employee = employeeInfoForm.getEmployee();
 		employee.setBirthdate(convertToDate(employeeInfoForm.getBirthdate()));
 		employeeService.create(employeeInfoForm.getEmployee());
+		redirectAttributes.addFlashAttribute(ResultMessages.success().add(ResultMessage.fromText("Employee created successfully!")));
 		return "redirect:/";
 	}
 
 	/**
-	 * Controller home (page:U0010)
+	 * Controller edit employee (page:U0030)
 	 * 
 	 * @param pageable
 	 *            page constraints
@@ -115,7 +119,7 @@ public class EmployeeController {
 	 *            model
 	 * @return JSP link towards edit employee page (page:U0030)
 	 */
-	@RequestMapping(value = "/edit")
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public String editEmployee(Model model, @RequestParam("id") String employeeId) {
 		model.addAttribute("headerTitle", "Edit employee");
 		EmployeeInfoInputForm employeeForm = new EmployeeInfoInputForm();
@@ -139,8 +143,26 @@ public class EmployeeController {
 		Employee employee = employeeInfoForm.getEmployee();
 		employee.setBirthdate(convertToDate(employeeInfoForm.getBirthdate()));
 		employeeService.update(employeeInfoForm.getEmployee());
+		redirectAttributes.addFlashAttribute(ResultMessages.success().add(ResultMessage.fromText("Update successful!")));
 		return "redirect:/";
 	}
+	
+	/**
+	 * Controller delete employee
+	 * 
+	 * @param pageable
+	 *            page constraints
+	 * @param model
+	 *            model
+	 * @return 
+	 */
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public String deleteEmployee(Model model, @RequestParam("id") String employeeId) {
+		employeeService.delete(employeeId);
+		return "redirect:/";
+	}
+	
+	
 
 	/**
 	 * Converts date String to Date object

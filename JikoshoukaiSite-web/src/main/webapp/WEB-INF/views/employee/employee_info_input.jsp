@@ -66,7 +66,7 @@
 				});
 			</script>
 
-			<input type="submit" value="Back" />
+			<input type="button" onclick="location.href='${pageContext.request.contextPath}';" value="Back" />
 			<input type="submit" value="Update" />
 		</form:form>
 	</div>

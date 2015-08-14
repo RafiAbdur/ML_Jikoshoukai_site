@@ -1,10 +1,11 @@
+<%@page import="java.util.StringTokenizer"%>
 <style>
 .pagination li {
-    display: inline;
+	display: inline;
 }
 
 .pagination li>a {
-    margin-left: 10px;
+	margin-left: 10px;
 }
 </style>
 <div id="wrapper">
@@ -17,13 +18,13 @@
 			method="post" modelAttribute="searchEmployeeForm">
 
 			<label>姓（全角）</label>
-			<form:input path="employee.surName" maxlength="5"/>
+			<form:input path="employee.surName" maxlength="5" />
 			<form:errors path="employee.surName" />
 			<br>
 			<br>
-			
+
 			<label>名（全角）</label>
-			<form:input path="employee.name" maxlength="5"/>
+			<form:input path="employee.name" maxlength="5" />
 			<form:errors path="employee.name" />
 			<br>
 			<br>
@@ -33,13 +34,13 @@
 			<form:errors path="employee.surNameKana" />
 			<br>
 			<br>
-			
+
 			<label>名（カナ）</label>
-			<form:input path="employee.nameKana" maxlength="10"/>
+			<form:input path="employee.nameKana" maxlength="10" />
 			<form:errors path="employee.nameKana" />
 			<br>
 			<br>
-			
+
 			<label>性別　　　</label>
 			<form:select path="employee.gender"
 				items="${searchEmployeeForm.getGenderList()}" />
@@ -53,7 +54,7 @@
 			<br>
 
 			<label>キーワード</label>
-			<form:input path="keyword" maxlength="50"/>
+			<form:input path="keyword" maxlength="50" />
 			<form:errors path="keyword" />
 			<br>
 			<br>
@@ -61,15 +62,15 @@
 
 			<input type="submit" value="検索" />
 		</form:form>
-		
+
 		<br>
 
 		<hr>
-		
+
 		<a href="${pageContext.request.contextPath}/create">Add new
 			employee</a>
-			
-			<h3>${f:h(searchResultMessage)}</h3>
+
+		<h3>${f:h(searchResultMessage)}</h3>
 
 		<h3>Employee List</h3>
 		<c:choose>
@@ -91,6 +92,7 @@
 
 					<c:forEach var="employee" items="${page.content}"
 						varStatus="rowStatus">
+
 						<tr>
 							<!-- <td>${(page.number * page.size) + rowStatus.count}</td>-->
 							<td>${f:h(employee.surName)}</td>
@@ -109,7 +111,8 @@
 									action="${pageContext.request.contextPath}/delete">
 									<input type="hidden" name="id"
 										value="${f:h(employee.employeeId)}" />
-									<input type="submit" value="削除" onclick="return confirmDelete();" />
+									<input type="submit" value="削除"
+										onclick="return confirmDelete();" />
 								</form:form></td>
 						</tr>
 					</c:forEach>

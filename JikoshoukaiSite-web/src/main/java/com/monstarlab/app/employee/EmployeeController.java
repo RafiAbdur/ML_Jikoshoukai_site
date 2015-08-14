@@ -103,7 +103,7 @@ public class EmployeeController {
 	}
 
 	/**
-	 * Controleer-method complete creation of the new employee
+	 * Controller-method complete creation of the new employee
 	 * 
 	 * @param model
 	 * @return Forward link towards home page (U0010)

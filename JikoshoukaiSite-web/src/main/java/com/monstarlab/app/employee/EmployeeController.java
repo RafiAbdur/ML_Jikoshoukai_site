@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.monstarlab.domain.form.EmployeeInfoInputForm;
 import com.monstarlab.domain.form.SearchEmployeeForm;
 import com.monstarlab.domain.model.Employee;
 import com.monstarlab.domain.service.EmployeeService;
@@ -80,20 +81,10 @@ public class EmployeeController {
 	@RequestMapping(value = "/create")
 	public String createEmployee(Model model) {
 		model.addAttribute("headerTitle", "Add new employee");
+		model.addAttribute("employeeInfoInputForm", new EmployeeInfoInputForm());
 		return "employee/employee_info_input";
 	}
 
-	/**
-	 * Controleer-method complete creation of the new employee
-	 * 
-	 * @param model
-	 * @return Forward link towards home page (U0010)
-	 */
-	@RequestMapping(value = "/docreate", method = RequestMethod.POST)
-	public String creationComplete(Model model) {
-
-		return "redirect:/welcome/home";
-	}
 
 	/**
 	 * Controller home (page:U0010)
@@ -107,7 +98,25 @@ public class EmployeeController {
 	@RequestMapping(value = "/edit")
 	public String editEmployee(Model model) {
 		model.addAttribute("headerTitle", "Edit employee");
+		model.addAttribute("employeeInfoInputForm", new EmployeeInfoInputForm());
 		return "employee/employee_info_input";
 	}
 
+	/**
+	 * Controleer-method complete creation of the new employee
+	 * 
+	 * @param model
+	 * @return Forward link towards home page (U0010)
+	 */
+	@RequestMapping(value = "/docreate", method = RequestMethod.POST)
+	public String creationComplete(Model model) {
+		
+		return "redirect:/welcome/home";
+	}
+	
+	@RequestMapping(value = "/doedit", method = RequestMethod.POST)
+	public String editComplete(Model model) {
+		
+		return "redirect:/employee/employee_info_input";
+	}
 }

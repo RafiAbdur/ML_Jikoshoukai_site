@@ -1,5 +1,9 @@
 package com.monstarlab.app.employee;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -13,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.monstarlab.domain.form.EmployeeInfoInputForm;
@@ -38,7 +43,7 @@ public class EmployeeController {
 	 */
 	@RequestMapping(value = "/", method = { RequestMethod.GET, RequestMethod.POST })
 	public String home(
-			@PageableDefault(page = 0, size = 2, direction = Direction.DESC, sort = "employeeId") Pageable pageable,
+			@PageableDefault(page = 0, size = 20, direction = Direction.DESC, sort = "employeeId") Pageable pageable,
 			Model model) {
 		// Add form class for searching employee
 		model.addAttribute("searchEmployeeForm", new SearchEmployeeForm());
@@ -63,7 +68,7 @@ public class EmployeeController {
 	 */
 	@RequestMapping(value = "/search", method = { RequestMethod.GET, RequestMethod.POST })
 	public String searchEmployee(
-			@PageableDefault(page = 0, size = 2, direction = Direction.DESC, sort = "employeeId") Pageable pageable,
+			@PageableDefault(page = 0, size = 20, direction = Direction.DESC, sort = "employeeId") Pageable pageable,
 			Model model, SearchEmployeeForm searchEmployeeForm, BindingResult bindingResult,
 			RedirectAttributes attributes) {
 		Page<Employee> page = employeeService.search(searchEmployeeForm, pageable);
@@ -82,9 +87,24 @@ public class EmployeeController {
 	public String createEmployee(Model model) {
 		model.addAttribute("headerTitle", "Add new employee");
 		model.addAttribute("employeeInfoInputForm", new EmployeeInfoInputForm());
+		model.addAttribute("action", "docreate");
 		return "employee/employee_info_input";
 	}
 
+	/**
+	 * Controller-method complete creation of the new employee
+	 * 
+	 * @param model
+	 * @return Forward link towards home page (U0010)
+	 */
+	@RequestMapping(value = "/docreate", method = RequestMethod.POST)
+	public String creationComplete(Model model, EmployeeInfoInputForm employeeInfoForm, BindingResult bindingResult,
+			RedirectAttributes redirectAttributes) {
+		Employee employee = employeeInfoForm.getEmployee();
+		employee.setBirthdate(convertToDate(employeeInfoForm.getBirthdate()));
+		employeeService.create(employeeInfoForm.getEmployee());
+		return "redirect:/";
+	}
 
 	/**
 	 * Controller home (page:U0010)
@@ -96,27 +116,55 @@ public class EmployeeController {
 	 * @return JSP link towards edit employee page (page:U0030)
 	 */
 	@RequestMapping(value = "/edit")
-	public String editEmployee(Model model) {
+	public String editEmployee(Model model, @RequestParam("id") String employeeId) {
 		model.addAttribute("headerTitle", "Edit employee");
-		model.addAttribute("employeeInfoInputForm", new EmployeeInfoInputForm());
+		EmployeeInfoInputForm employeeForm = new EmployeeInfoInputForm();
+		Employee employee = employeeService.findOne(employeeId);
+		employeeForm.setEmployee(employee);
+		employeeForm.setBirthdate(convertToDateString(employee.getBirthdate()));
+		model.addAttribute("employeeInfoInputForm", employeeForm);
+		model.addAttribute("action", "doedit");
 		return "employee/employee_info_input";
 	}
 
 	/**
-	 * Controller-method complete creation of the new employee
+	 * Controller-method complete update of the new employee
 	 * 
 	 * @param model
 	 * @return Forward link towards home page (U0010)
 	 */
-	@RequestMapping(value = "/docreate", method = RequestMethod.POST)
-	public String creationComplete(Model model) {
-		
-		return "redirect:/welcome/home";
-	}
-	
 	@RequestMapping(value = "/doedit", method = RequestMethod.POST)
-	public String editComplete(Model model) {
-		
-		return "redirect:/employee/employee_info_input";
+	public String editComplete(Model model, EmployeeInfoInputForm employeeInfoForm, BindingResult bindingResult,
+			RedirectAttributes redirectAttributes) {
+		Employee employee = employeeInfoForm.getEmployee();
+		employee.setBirthdate(convertToDate(employeeInfoForm.getBirthdate()));
+		employeeService.update(employeeInfoForm.getEmployee());
+		return "redirect:/";
 	}
+
+	/**
+	 * Converts date String to Date object
+	 * 
+	 * @param dateString
+	 * @return
+	 */
+	private Date convertToDate(String dateString) {
+		Date date = null;
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			date = formatter.parse(dateString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		return date;
+	}
+
+	private String convertToDateString(Date date) {
+		String dateString = null;
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		dateString = formatter.format(date);
+		return dateString;
+	}
+
 }

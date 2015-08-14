@@ -48,6 +48,7 @@
 		</form:form>
 
 		<hr>
+		<a href="${pageContext.request.contextPath}/create">Add new employee</a>
 
 		<h3>Employee List</h3>
 		<c:choose>
@@ -56,7 +57,13 @@
 					<thead>
 						<tr>
 							<th>No</th>
-							<th>Title</th>
+							<th>Surname</th>
+							<th>Name</th>
+							<th>Surname in kana</th>
+							<th>Name in kana</th>
+							<th>Birth Date</th>
+							<th>Self Introduction</th>
+							<th>Action</th>
 						</tr>
 					</thead>
 
@@ -64,7 +71,13 @@
 						varStatus="rowStatus">
 						<tr>
 							<td>${(page.number * page.size) + rowStatus.count}</td>
-							<td>${f:h(employee.name)}</td>
+							<td>${f:h(employee.surName)}</td>
+							<td>${f:h(employee.name)}</td>		
+							<td>${f:h(employee.surNameKana)}</td>					
+							<td>${f:h(employee.nameKana)}</td>
+							<td>${f:h(employee.birthdate)}</td>
+							<td>${f:h(employee.selfIntroduction)}</td>
+							<td><a href="${pageContext.request.contextPath}/edit/?id=${f:h(employee.employeeId)}">Edit</a> | <a href="${pageContext.request.contextPath}/delete/?id=${f:h(employee.employeeId)}">Delete</a></td>
 						</tr>
 					</c:forEach>
 				</table>

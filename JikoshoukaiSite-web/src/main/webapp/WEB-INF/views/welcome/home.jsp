@@ -77,7 +77,7 @@
 							<td>${f:h(employee.nameKana)}</td>
 							<td>${f:h(employee.birthdate)}</td>
 							<td>${f:h(employee.selfIntroduction)}</td>
-							<td><a href="${pageContext.request.contextPath}/edit/${f:h(employee.employeeId)}">Edit</a> | <a href="${pageContext.request.contextPath}/delete/${f:h(employee.employeeId)}">Delete</a></td>
+							<td><a href="${pageContext.request.contextPath}/edit/?id=${f:h(employee.employeeId)}">Edit</a> | <a href="${pageContext.request.contextPath}/delete/?id=${f:h(employee.employeeId)}">Delete</a></td>
 						</tr>
 					</c:forEach>
 				</table>

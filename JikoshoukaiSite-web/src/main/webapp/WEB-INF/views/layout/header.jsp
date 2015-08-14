@@ -4,5 +4,4 @@
 <ul>
 	<li><a href="${pageContext.request.contextPath}/">Home</a></li>
 	<li><a href="${pageContext.request.contextPath}/create">Add new employee</a></li>
-	<li><a href="${pageContext.request.contextPath}/edit">Edit employee</a></li>
 </ul>

@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.monstarlab.domain.form.EmployeeInfoInputForm;
@@ -125,7 +126,8 @@ public class EmployeeController {
 	 * @return JSP link towards edit employee page (page:U0030)
 	 */
 	@RequestMapping(value = "/edit")
-	public String editEmployee(Model model) {
+	public String editEmployee(Model model, @RequestParam("id") String employeeId) {
+		System.out.println("id is " + employeeId);
 		model.addAttribute("headerTitle", "Edit employee");
 		model.addAttribute("employeeInfoInputForm", new EmployeeInfoInputForm());
 		return "employee/employee_info_input";

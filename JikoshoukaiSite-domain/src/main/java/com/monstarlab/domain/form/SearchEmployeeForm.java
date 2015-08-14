@@ -8,6 +8,8 @@ import com.monstarlab.domain.model.Employee;
 
 public class SearchEmployeeForm implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	private Employee employee;
 
 	private String keyword;

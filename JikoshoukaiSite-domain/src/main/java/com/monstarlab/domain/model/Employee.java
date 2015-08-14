@@ -8,6 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "employee")
@@ -18,18 +22,24 @@ public class Employee {
 	private String employeeId;
 
 	// variable for surname
+	@Size(min=1, max=5, message="surname have to be between 1 and 5 characters")
 	@Column(name = "surname")
 	private String surName;
 
 	// variable for name
+	@NotNull
+	@Size(min=1, max=5, message="name have to be between 1 and 5 characters")
 	@Column(name = "name")
 	private String name;
 
 	// variable for surname in kana
+	@NotNull
+	@Size(min=1, max=10, message="surname in kana have to be between 1 and 10 characters")
 	@Column(name = "surname_kana")
 	private String surNameKana;
 
 	// variable for name in kana
+	@Size(min=1, max=10, message="name have to be between 1 and 10 characters")
 	@Column(name = "name_kana")
 	private String nameKana;
 
@@ -43,6 +53,7 @@ public class Employee {
 	private Date birthdate;
 
 	// variable for self-description
+	@Size(min=1, max=1000, message="name have to be between 1 and 1000 characters")
 	@Column(name = "self_introduction")
 	private String selfIntroduction;
 

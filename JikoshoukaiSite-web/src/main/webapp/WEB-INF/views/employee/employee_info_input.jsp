@@ -6,7 +6,7 @@
 
 		<t:messagesPanel />
 		<form:form action="${pageContext.request.contextPath}/${action}"
-			method="post" modelAttribute="employeeInfoInputForm">
+			method="post" commandName="employeeInfoInputForm">
 			
 			<form:hidden path="employee.employeeId"/>
 			
@@ -18,7 +18,7 @@
 			
 			<label>名（全角）</label>
 			<form:input path="employee.name" />
-			<form:errors path="employee.name" />
+			<form:errors path="employee.name"></form:errors>
 			<br>
 			<br>
 			
@@ -66,7 +66,7 @@
 				});
 			</script>
 
-			<input type="submit" value="Back" />
+			<input type="button" onclick="location.href='${pageContext.request.contextPath}';" value="Back" />
 			<input type="submit" value="Update" />
 		</form:form>
 	</div>

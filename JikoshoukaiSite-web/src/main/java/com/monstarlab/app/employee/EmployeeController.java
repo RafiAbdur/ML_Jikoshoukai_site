@@ -100,16 +100,8 @@ public class EmployeeController {
 	@RequestMapping(value = "/docreate", method = RequestMethod.POST)
 	public String creationComplete(Model model, EmployeeInfoInputForm employeeInfoForm, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes) {
-
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		Employee employee = employeeInfoForm.getEmployee();
-
-		try {
-			Date date = formatter.parse(employeeInfoForm.getBirthdate());
-			employee.setBirthdate(date);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+		employee.setBirthdate(convertToDate(employeeInfoForm.getBirthdate()));
 		employeeService.create(employeeInfoForm.getEmployee());
 		return "redirect:/";
 	}
@@ -129,7 +121,7 @@ public class EmployeeController {
 		EmployeeInfoInputForm employeeForm = new EmployeeInfoInputForm();
 		Employee employee = employeeService.findOne(employeeId);
 		employeeForm.setEmployee(employee);
-		employeeForm.setBirthdate("2015-08-16");
+		employeeForm.setBirthdate(convertToDateString(employee.getBirthdate()));
 		model.addAttribute("employeeInfoInputForm", employeeForm);
 		model.addAttribute("action", "doedit");
 		return "employee/employee_info_input";
@@ -145,7 +137,6 @@ public class EmployeeController {
 	public String editComplete(Model model, EmployeeInfoInputForm employeeInfoForm, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes) {
 		Employee employee = employeeInfoForm.getEmployee();
-		System.out.println("lol " + employeeInfoForm.getBirthdate());
 		employee.setBirthdate(convertToDate(employeeInfoForm.getBirthdate()));
 		employeeService.update(employeeInfoForm.getEmployee());
 		return "redirect:/";
@@ -167,6 +158,13 @@ public class EmployeeController {
 		}
 
 		return date;
+	}
+
+	private String convertToDateString(Date date) {
+		String dateString = null;
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		dateString = formatter.format(date);
+		return dateString;
 	}
 
 }

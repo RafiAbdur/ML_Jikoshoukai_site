@@ -1,20 +1,63 @@
 package com.monstarlab.domain.service;
 
+import java.util.Collection;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.monstarlab.domain.form.SearchEmployeeForm;
 import com.monstarlab.domain.model.Employee;
 
 public interface EmployeeService {
-	// Find all employees and get according to page display limitation
+	
+	/**
+	 * Retrieves an employee by its id.
+	 * 
+	 * @param employeeId
+	 * @return the employee with the given id
+	 */
+	public Employee findOne(String employeeId);
+
+	/**
+	 * Returns all the records of employees.
+	 * 
+	 * @param pageable
+	 * @return a collection of employees
+	 */
+	public Collection<Employee> findAll();
+
+	/**
+	 * Returns a {@link Page} of employees meeting the paging restriction
+	 * provided in the {@code Pageable} object.
+	 * 
+	 * @param pageable
+	 * @return a page of employees
+	 */
 	Page<Employee> findAll(Pageable pageable);
 
-	// Create new employee
+	/**
+	 * Creates the given employee.
+	 * 
+	 * @param employee
+	 * @return the created entity
+	 */
 	Employee create(Employee employee);
 
-	// Update current employee information
+	/**
+	 * Updates the given employee.
+	 * 
+	 * @param employee
+	 * @return the updated entity
+	 */
 	Employee update(Employee employee);
 
-	// Delete current employee
-	void delete(int employeeId);
+	/**
+	 * Deletes an employee against his id number.
+	 * 
+	 * @param employeeId
+	 */
+	void delete(String employeeId);
+
+	public Page<Employee> search(SearchEmployeeForm searchEmployeeForm, Pageable pageable);
+	
 }

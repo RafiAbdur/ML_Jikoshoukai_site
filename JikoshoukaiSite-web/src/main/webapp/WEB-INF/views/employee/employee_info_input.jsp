@@ -5,9 +5,11 @@
 		<h3>Input Employee Information</h3>
 
 		<t:messagesPanel />
-		<form:form action="${pageContext.request.contextPath}/docreate"
+		<form:form action="${pageContext.request.contextPath}/${action}"
 			method="post" modelAttribute="employeeInfoInputForm">
-
+			
+			<form:hidden path="employee.employeeId"/>
+			
 			<label>Name</label>
 			<form:input path="employee.name" />
 			<form:errors path="employee.name" />

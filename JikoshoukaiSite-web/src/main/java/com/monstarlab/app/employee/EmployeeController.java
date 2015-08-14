@@ -87,11 +87,12 @@ public class EmployeeController {
 	public String createEmployee(Model model) {
 		model.addAttribute("headerTitle", "Add new employee");
 		model.addAttribute("employeeInfoInputForm", new EmployeeInfoInputForm());
+		model.addAttribute("action", "docreate");
 		return "employee/employee_info_input";
 	}
 
 	/**
-	 * Controleer-method complete creation of the new employee
+	 * Controller-method complete creation of the new employee
 	 * 
 	 * @param model
 	 * @return Forward link towards home page (U0010)
@@ -99,19 +100,16 @@ public class EmployeeController {
 	@RequestMapping(value = "/docreate", method = RequestMethod.POST)
 	public String creationComplete(Model model, EmployeeInfoInputForm employeeInfoForm, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes) {
-		
-		
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		Employee employee = employeeInfoForm.getEmployee();
-		
-		
+
 		try {
 			Date date = formatter.parse(employeeInfoForm.getBirthdate());
 			employee.setBirthdate(date);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		System.out.println("in controller" + employee);
 		employeeService.create(employeeInfoForm.getEmployee());
 		return "redirect:/";
 	}
@@ -127,15 +125,48 @@ public class EmployeeController {
 	 */
 	@RequestMapping(value = "/edit")
 	public String editEmployee(Model model, @RequestParam("id") String employeeId) {
-		System.out.println("id is " + employeeId);
 		model.addAttribute("headerTitle", "Edit employee");
-		model.addAttribute("employeeInfoInputForm", new EmployeeInfoInputForm());
+		EmployeeInfoInputForm employeeForm = new EmployeeInfoInputForm();
+		Employee employee = employeeService.findOne(employeeId);
+		employeeForm.setEmployee(employee);
+		employeeForm.setBirthdate("2015-08-16");
+		model.addAttribute("employeeInfoInputForm", employeeForm);
+		model.addAttribute("action", "doedit");
 		return "employee/employee_info_input";
 	}
 
+	/**
+	 * Controller-method complete update of the new employee
+	 * 
+	 * @param model
+	 * @return Forward link towards home page (U0010)
+	 */
 	@RequestMapping(value = "/doedit", method = RequestMethod.POST)
-	public String editComplete(Model model) {
-
-		return "redirect:/employee/employee_info_input";
+	public String editComplete(Model model, EmployeeInfoInputForm employeeInfoForm, BindingResult bindingResult,
+			RedirectAttributes redirectAttributes) {
+		Employee employee = employeeInfoForm.getEmployee();
+		System.out.println("lol " + employeeInfoForm.getBirthdate());
+		employee.setBirthdate(convertToDate(employeeInfoForm.getBirthdate()));
+		employeeService.update(employeeInfoForm.getEmployee());
+		return "redirect:/";
 	}
+
+	/**
+	 * Converts date String to Date object
+	 * 
+	 * @param dateString
+	 * @return
+	 */
+	private Date convertToDate(String dateString) {
+		Date date = null;
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			date = formatter.parse(dateString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		return date;
+	}
+
 }

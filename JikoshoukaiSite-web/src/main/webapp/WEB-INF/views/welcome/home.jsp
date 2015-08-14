@@ -48,7 +48,11 @@
 		</form:form>
 
 		<hr>
-		<a href="${pageContext.request.contextPath}/create">Add new employee</a>
+		
+		<a href="${pageContext.request.contextPath}/create">Add new
+			employee</a>
+			
+			<h3>${f:h(searchResultMessage)}</h3>
 
 		<h3>Employee List</h3>
 		<c:choose>
@@ -72,16 +76,26 @@
 						<tr>
 							<td>${(page.number * page.size) + rowStatus.count}</td>
 							<td>${f:h(employee.surName)}</td>
-							<td>${f:h(employee.name)}</td>		
-							<td>${f:h(employee.surNameKana)}</td>					
+							<td>${f:h(employee.name)}</td>
+							<td>${f:h(employee.surNameKana)}</td>
 							<td>${f:h(employee.nameKana)}</td>
 							<td>${f:h(employee.birthdate)}</td>
 							<td>${f:h(employee.selfIntroduction)}</td>
-							<td><a href="${pageContext.request.contextPath}/edit/?id=${f:h(employee.employeeId)}">Edit</a> | <a href="${pageContext.request.contextPath}/delete/?id=${f:h(employee.employeeId)}">Delete</a></td>
+							<td><form:form method="post"
+									action="${pageContext.request.contextPath}/edit">
+									<input type="hidden" name="id"
+										value="${f:h(employee.employeeId)}" />
+									<input type="submit" value="Edit" />
+								</form:form> <form:form method="post"
+									action="${pageContext.request.contextPath}/delete">
+									<input type="hidden" name="id"
+										value="${f:h(employee.employeeId)}" />
+									<input type="submit" value="Delete" onclick="return confirmDelete();" />
+								</form:form></td>
 						</tr>
 					</c:forEach>
 				</table>
-				
+
 				<div>
 					<t:pagination page="${page}" outerElementClass="pagination" />
 				</div>
@@ -92,3 +106,13 @@
 	</div>
 
 </div>
+
+<script type="text/javascript">
+	function confirmDelete() {
+		var agree = confirm("Are you sure you want to delete this file?");
+		if (agree)
+			return true;
+		else
+			return false;
+	}
+</script>

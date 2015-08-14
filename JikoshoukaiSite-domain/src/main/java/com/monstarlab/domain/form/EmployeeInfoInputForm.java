@@ -7,14 +7,23 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.monstarlab.domain.model.Employee;
 
 public class EmployeeInfoInputForm implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Valid
 	private Employee employee;
 
+	@NotNull
+	@NotEmpty(message="birthdate cannot be empty")
 	private String birthdate;
 
 	// Variable for storing the genders : (i) Male (ii) Female

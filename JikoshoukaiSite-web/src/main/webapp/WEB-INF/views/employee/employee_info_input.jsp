@@ -6,13 +6,13 @@
 
 		<t:messagesPanel />
 		<form:form action="${pageContext.request.contextPath}/${action}"
-			method="post" modelAttribute="employeeInfoInputForm">
+			method="post" commandName="employeeInfoInputForm">
 			
 			<form:hidden path="employee.employeeId"/>
 			
 			<label>Name</label>
 			<form:input path="employee.name" />
-			<form:errors path="employee.name" />
+			<form:errors path="employee.name"></form:errors>
 			<br>
 
 			<label>Surname</label>

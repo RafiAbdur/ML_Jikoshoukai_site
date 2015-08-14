@@ -3,8 +3,10 @@ package com.monstarlab.app.employee;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +17,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -101,12 +104,20 @@ public class EmployeeController {
 	 * @return Forward link towards home page (U0010)
 	 */
 	@RequestMapping(value = "/docreate", method = RequestMethod.POST)
-	public String creationComplete(Model model, EmployeeInfoInputForm employeeInfoForm, BindingResult bindingResult,
-			RedirectAttributes redirectAttributes) {
+	public String creationComplete(Model model, @Valid EmployeeInfoInputForm employeeInfoForm,
+			BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("headerTitle", "Add new employee");
+			model.addAttribute("action", "docreate");
+			return "employee/employee_info_input";
+		}
+		System.out.println("I am not here");
+
 		Employee employee = employeeInfoForm.getEmployee();
 		employee.setBirthdate(convertToDate(employeeInfoForm.getBirthdate()));
 		employeeService.create(employeeInfoForm.getEmployee());
-		redirectAttributes.addFlashAttribute(ResultMessages.success().add(ResultMessage.fromText("Employee created successfully!")));
+		redirectAttributes.addFlashAttribute(
+				ResultMessages.success().add(ResultMessage.fromText("Employee created successfully!")));
 		return "redirect:/";
 	}
 
@@ -143,10 +154,11 @@ public class EmployeeController {
 		Employee employee = employeeInfoForm.getEmployee();
 		employee.setBirthdate(convertToDate(employeeInfoForm.getBirthdate()));
 		employeeService.update(employeeInfoForm.getEmployee());
-		redirectAttributes.addFlashAttribute(ResultMessages.success().add(ResultMessage.fromText("Update successful!")));
+		redirectAttributes
+				.addFlashAttribute(ResultMessages.success().add(ResultMessage.fromText("Update successful!")));
 		return "redirect:/";
 	}
-	
+
 	/**
 	 * Controller delete employee
 	 * 
@@ -154,15 +166,13 @@ public class EmployeeController {
 	 *            page constraints
 	 * @param model
 	 *            model
-	 * @return 
+	 * @return
 	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String deleteEmployee(Model model, @RequestParam("id") String employeeId) {
 		employeeService.delete(employeeId);
 		return "redirect:/";
 	}
-	
-	
 
 	/**
 	 * Converts date String to Date object

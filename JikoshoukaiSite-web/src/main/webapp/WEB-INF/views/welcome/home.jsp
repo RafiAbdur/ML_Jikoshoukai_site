@@ -1,5 +1,4 @@
 <div id="wrapper">
-	<h1>Home Page</h1>
 
 	<div>
 		<h3>Search Employee</h3>
@@ -46,6 +45,8 @@
 
 			<input type="submit" value="Search" />
 		</form:form>
+		
+		<br>
 
 		<hr>
 		

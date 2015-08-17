@@ -84,7 +84,7 @@
 							<th>姓（カナ）</th>
 							<th>名（カナ）</th>
 							<th>性別</th>
-							<th>Birth Date</th>
+							<th>年齢</th>
 							<th>自己紹介</th>
 							<th>操作</th>
 						</tr>
@@ -100,7 +100,7 @@
 							<td>${f:h(employee.surNameKana)}</td>
 							<td>${f:h(employee.nameKana)}</td>
 							<td>${f:h(employee.gender)}</td>
-							<td>${f:h(employee.birthdate)}</td>
+							<td>${employee.getAge()}</td>
 							<td>${f:h(employee.selfIntroduction)}</td>
 							<td><form:form method="post"
 									action="${pageContext.request.contextPath}/edit">

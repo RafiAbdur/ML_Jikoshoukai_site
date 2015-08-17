@@ -1,74 +1,84 @@
-<div id="wrapper">
-	<h1>${headerTitle}</h1>
+<div id="container">
+	<h3>${headerTitle}</h3>
 
-	<div id="todoForm">
-		<h3>Input Employee Information</h3>
+	<t:messagesPanel />
 
-		<t:messagesPanel />
-		<form:form action="${pageContext.request.contextPath}/${action}"
-			method="post" commandName="employeeInfoInputForm">
-			
-			<form:hidden path="employee.employeeId"/>
-			
+	<form:form action="${pageContext.request.contextPath}/${action}"
+		method="post" commandName="employeeInfoInputForm"
+		class="form-horizontal">
+
+		<form:hidden path="employee.employeeId" />
+
+		<div class="form-group">
 			<label>姓（全角）</label>
-			<form:input path="employee.surName" />
-			<form:errors path="employee.surName" />
+			<form:input path="employee.surName" class="form-control" />
 			<br>
-			<br>
-			
+			<form:errors path="employee.surName" class="alert alert-danger" />
+		</div>
+
+		<div class="form-group">
 			<label>名（全角）</label>
-			<form:input path="employee.name" />
-			<form:errors path="employee.name"></form:errors>
+			<form:input path="employee.name" class="form-control" />
 			<br>
-			<br>
-			
+			<form:errors path="employee.name" class="alert alert-danger" />
+		</div>
+
+		<div class="form-group">
 			<label>姓（カナ）</label>
-			<form:input path="employee.surNameKana" />
-			<form:errors path="employee.surNameKana" />
+			<form:input path="employee.surNameKana" class="form-control" />
 			<br>
-			<br>
+			<form:errors path="employee.surNameKana" class="alert alert-danger" />
+		</div>
 
+		<div class="form-group">
 			<label>名（カナ）</label>
-			<form:input path="employee.nameKana" />
-			<form:errors path="employee.nameKana" />
+			<form:input path="employee.nameKana" class="form-control" />
 			<br>
-			<br>
+			<form:errors path="employee.nameKana" class="alert alert-danger" />
+		</div>
 
+		<div class="form-group">
 			<label>性別</label>
 			<form:select path="employee.gender"
-				items="${employeeInfoInputForm.getGenderList()}" />
+				items="${employeeInfoInputForm.getGenderList()}"
+				class="form-control" />
 			<br>
-			<br>
+		</div>
 
-
+		<div class="form-group">
 			<label>生年月日 </label>
-			<form:input path="birthdate" id="birthdate" />
+			<form:input path="birthdate" id="birthdate" class="form-control" />
 			<br>
-			<br>
+			<c:if test="${not empty dateErrorMessage}">
+				<span class="alert alert-danger">${dateErrorMessage}</span>
+			</c:if>
+		</div>
 
-			<label>自己紹介</label>
+		<div class="form-group">
+			<label>自己紹介</label> <br>
+			<form:textarea rows="4" cols="50" maxlength="1000"
+				path="employee.selfIntroduction" value="" class="form-control" />
 			<br>
-			<form:textarea rows="4" cols="50" maxlength="50"
-				path="employee.selfIntroduction" value="" />
-			<form:errors path="employee.selfIntroduction" />
-			<br>
+			<form:errors path="employee.selfIntroduction"
+				class="alert alert-danger" />
+		</div>
 
-			
 
-			<script>
-				$(document).ready(function() {
-					$(function() {
-						$("#birthdate").datepicker({
-							dateFormat: "yy-mm-dd"
-						});
-						
+		<script>
+			$(document).ready(function() {
+				$(function() {
+					$("#birthdate").datepicker({
+						dateFormat : "yy-mm-dd"
 					});
+
 				});
-			</script>
+			});
+		</script>
 
-			<input type="button" onclick="location.href='${pageContext.request.contextPath}';" value="Back" />
-			<input type="submit" value="Update" />
-		</form:form>
-	</div>
+		<input type="button"
+			onclick="location.href='${pageContext.request.contextPath}';"
+			value="Back" class="btn btn-primary" />
 
+		<input type="submit" value="Update" class="btn btn-primary" />
+	</form:form>
 </div>

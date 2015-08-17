@@ -48,7 +48,7 @@ public class EmployeeController {
 	 */
 	@RequestMapping(value = "/", method = { RequestMethod.GET, RequestMethod.POST })
 	public String home(
-			@PageableDefault(page = 0, size = 20, direction = Direction.DESC, sort = "employeeId") Pageable pageable,
+			@PageableDefault(page = 0, size = 5, direction = Direction.DESC, sort = "employeeId") Pageable pageable,
 			Model model) {
 		// Add form class for searching employee
 		model.addAttribute("searchEmployeeForm", new SearchEmployeeForm());
@@ -73,7 +73,7 @@ public class EmployeeController {
 	 */
 	@RequestMapping(value = "/search", method = { RequestMethod.GET, RequestMethod.POST })
 	public String searchEmployee(
-			@PageableDefault(page = 0, size = 20, direction = Direction.DESC, sort = "employeeId") Pageable pageable,
+			@PageableDefault(page = 0, size = 5, direction = Direction.DESC, sort = "employeeId") Pageable pageable,
 			Model model, SearchEmployeeForm searchEmployeeForm, BindingResult bindingResult) {
 		Page<Employee> page = employeeService.search(searchEmployeeForm, pageable);
 		model.addAttribute("page", page);
@@ -92,8 +92,8 @@ public class EmployeeController {
 	@RequestMapping(value = "/create")
 	public String createEmployee(Model model) {
 		model.addAttribute("headerTitle", "Add new employee");
-		model.addAttribute("employeeInfoInputForm", new EmployeeInfoInputForm());
 		model.addAttribute("action", "docreate");
+		model.addAttribute("employeeInfoInputForm", new EmployeeInfoInputForm());
 		return "employee/employee_info_input";
 	}
 
@@ -106,12 +106,17 @@ public class EmployeeController {
 	@RequestMapping(value = "/docreate", method = RequestMethod.POST)
 	public String creationComplete(Model model, @Valid EmployeeInfoInputForm employeeInfoForm,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-		if (bindingResult.hasErrors()) {
+		Date date = convertToDate(employeeInfoForm.getBirthdate());
+
+		if (date == null) {
+			model.addAttribute("dateErrorMessage", "Please input valid date.");
+		}
+		
+		if (bindingResult.hasErrors() || date == null) {
 			model.addAttribute("headerTitle", "Add new employee");
 			model.addAttribute("action", "docreate");
 			return "employee/employee_info_input";
 		}
-		System.out.println("I am not here");
 
 		Employee employee = employeeInfoForm.getEmployee();
 		employee.setBirthdate(convertToDate(employeeInfoForm.getBirthdate()));
@@ -149,10 +154,22 @@ public class EmployeeController {
 	 * @return Forward link towards home page (U0010)
 	 */
 	@RequestMapping(value = "/doedit", method = RequestMethod.POST)
-	public String editComplete(Model model, EmployeeInfoInputForm employeeInfoForm, BindingResult bindingResult,
+	public String editComplete(Model model, @Valid EmployeeInfoInputForm employeeInfoForm, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes) {
 		Employee employee = employeeInfoForm.getEmployee();
-		employee.setBirthdate(convertToDate(employeeInfoForm.getBirthdate()));
+		Date date = convertToDate(employeeInfoForm.getBirthdate());
+		
+		if (date == null) {
+			model.addAttribute("dateErrorMessage", "Please input valid date.");
+		}
+
+		if (bindingResult.hasErrors() || date == null) {
+			model.addAttribute("headerTitle", "Edit employee");
+			model.addAttribute("action", "doedit");
+			return "employee/employee_info_input";
+		}
+
+		employee.setBirthdate(date);
 		employeeService.update(employeeInfoForm.getEmployee());
 		redirectAttributes
 				.addFlashAttribute(ResultMessages.success().add(ResultMessage.fromText("Update successful!")));
@@ -183,10 +200,13 @@ public class EmployeeController {
 	private Date convertToDate(String dateString) {
 		Date date = null;
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		formatter.setLenient(false);
+		
 		try {
 			date = formatter.parse(dateString);
 		} catch (ParseException e) {
 			e.printStackTrace();
+			return null;
 		}
 
 		return date;

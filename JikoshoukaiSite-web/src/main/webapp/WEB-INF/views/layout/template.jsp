@@ -17,8 +17,18 @@
 	<tiles:insertAttribute name="title" ignore="true" />
 </c:set>
 <title><spring:message code="${titleKey}" text="JikoshoukaiSite" /></title>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/app/css/styles.css">
+
+<!-- Bootstrap Core CSS -->
+<link
+	href="${pageContext.request.contextPath}/resources/app/css/bootstrap.css"
+	rel="stylesheet">
+
+<!-- Custom CSS -->
+<link
+	href="${pageContext.request.contextPath}/resources/app/css/business-frontpage.css"
+	rel="stylesheet">
+
+
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 <link rel="stylesheet"
@@ -29,8 +39,15 @@
 		<tiles:insertAttribute name="header" />
 		<tiles:insertAttribute name="body" />
 		<hr>
-		<p style="text-align: center; background: #e5eCf9;">Copyright
-			&copy; 2015 Monstar Lab Inc.</p>
+		<!-- Footer -->
+		<footer>
+			<div class="row">
+				<div class="col-lg-12">
+					<p>Copyright &copy; Monstar Lab, Inc. 2015</p>
+				</div>
+			</div>
+			<!-- /.row -->
+		</footer>
 	</div>
 </body>
 

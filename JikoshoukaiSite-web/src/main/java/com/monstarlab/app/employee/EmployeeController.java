@@ -163,7 +163,7 @@ public class EmployeeController {
 			model.addAttribute("dateErrorMessage", "Please input valid date.");
 		}
 
-		if (bindingResult.hasErrors()) {
+		if (bindingResult.hasErrors() || date == null) {
 			model.addAttribute("headerTitle", "Edit employee");
 			model.addAttribute("action", "doedit");
 			return "employee/employee_info_input";

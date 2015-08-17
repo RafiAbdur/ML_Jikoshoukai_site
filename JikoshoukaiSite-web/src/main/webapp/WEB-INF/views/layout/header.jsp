@@ -1,33 +1,37 @@
-<h1>
-	<a href="${pageContext.request.contextPath}/">JikoshoukaiSite</a>
-</h1>
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="${pageContext.request.contextPath}">JikoshoukaiSite</a>
+		</div>
 
-<style>
-ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-}
 
-ul li {
-padding: 0px;
-	padding-right: 20px;
-    float: left;
-}
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse"
+			id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="${pageContext.request.contextPath}/">Home</a></li>
+				<li><a href="${pageContext.request.contextPath}/create">Add
+						new employee</a></li>
+			</ul>
+		</div>
+		<!-- /.navbar-collapse -->
+	</div>
+	<!-- /.container -->
+</nav>
 
-ul li a {
-	display: block;
-}
+<!-- Image Background Page Header -->
+<!-- Note: The background image is set within the business-casual.css file. -->
+<header>
+	<div class="container">
+		<h1 class="tagline">Monstar Lab JikoshoukaiSite</h1>
 
-div.clear{
-clear: both;
-}
-</style>
-<ul>
-	<li><a href="${pageContext.request.contextPath}/">Home</a></li>
-	<li><a href="${pageContext.request.contextPath}/create">Add
-			new employee</a></li>
-</ul>
-<div calss="clear">
-</div>
-<br><br>
+	</div>
+</header>

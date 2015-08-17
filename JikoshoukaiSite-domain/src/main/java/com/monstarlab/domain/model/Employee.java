@@ -53,7 +53,7 @@ public class Employee {
 	private Date birthdate;
 
 	// variable for self-description
-	@Size(min=1, max=1000, message="name have to be between 1 and 1000 characters")
+	@Size(min=1, max=1000, message="Self-desctiption have to be between 1 and 1000 characters")
 	@Column(name = "self_introduction")
 	private String selfIntroduction;
 

@@ -21,12 +21,13 @@
 
 		<input type="submit" value="検索" class="btn btn-default" />
 	</form:form>
+
 	<hr>
+
 	<a href="${pageContext.request.contextPath}/create"
 		class="btn btn-primary pull-right" role="button">Add employee</a>
 	<h3>Employee List</h3>
 	<c:choose>
-
 		<c:when test="${page != null && page.totalPages != 0}">
 			<h3>${f:h(searchResultMessage)}</h3>
 			<table class="table table-striped">
@@ -38,7 +39,7 @@
 						<th>姓（カナ）</th>
 						<th>名（カナ）</th>
 						<th>性別</th>
-						<th>Birth Date</th>
+						<th>年齢</th>
 						<th>自己紹介</th>
 						<th>操作</th>
 					</tr>
@@ -54,7 +55,7 @@
 						<td>${f:h(employee.surNameKana)}</td>
 						<td>${f:h(employee.nameKana)}</td>
 						<td>${f:h(employee.gender)}</td>
-						<td>${f:h(employee.birthdate)}</td>
+						<td>${f:h(employee.getAge())}</td>
 						<td>${f:h(employee.selfIntroduction)}</td>
 						<td><form:form method="post"
 								action="${pageContext.request.contextPath}/edit">
@@ -79,6 +80,15 @@
 			</div>
 		</c:when>
 	</c:choose>
+	<input type="submit" value="検索" /> <br>
+
+	<hr>
+
+	<a href="${pageContext.request.contextPath}/create">Add new
+		employee</a>
+
+	<h3>${f:h(searchResultMessage)}</h3>
+
 </div>
 <!-- /.container -->
 

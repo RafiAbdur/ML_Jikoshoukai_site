@@ -1,5 +1,7 @@
 package com.monstarlab.domain.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -12,6 +14,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.LocalDate;
+import org.joda.time.Years;
 
 @Entity
 @Table(name = "employee")
@@ -22,24 +26,24 @@ public class Employee {
 	private String employeeId;
 
 	// variable for surname
-	@Size(min=1, max=5, message="surname have to be between 1 and 5 characters")
+	@Size(min = 1, max = 5, message = "surname have to be between 1 and 5 characters")
 	@Column(name = "surname")
 	private String surName;
 
 	// variable for name
 	@NotNull
-	@Size(min=1, max=5, message="name have to be between 1 and 5 characters")
+	@Size(min = 1, max = 5, message = "name have to be between 1 and 5 characters")
 	@Column(name = "name")
 	private String name;
 
 	// variable for surname in kana
 	@NotNull
-	@Size(min=1, max=10, message="surname in kana have to be between 1 and 10 characters")
+	@Size(min = 1, max = 10, message = "surname in kana have to be between 1 and 10 characters")
 	@Column(name = "surname_kana")
 	private String surNameKana;
 
 	// variable for name in kana
-	@Size(min=1, max=10, message="name have to be between 1 and 10 characters")
+	@Size(min = 1, max = 10, message = "name have to be between 1 and 10 characters")
 	@Column(name = "name_kana")
 	private String nameKana;
 
@@ -57,7 +61,6 @@ public class Employee {
 	@Column(name = "self_introduction")
 	private String selfIntroduction;
 
-	
 	public String getEmployeeId() {
 		return employeeId;
 	}
@@ -123,7 +126,22 @@ public class Employee {
 	}
 	
 	public int getAge(){
-		return 88;
+		
+		String dateString = null;
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		dateString = formatter.format(birthdate);
+		
+		//INTO SEPERATE VARIABLES
+		int yearDOB = Integer.parseInt(dateString.substring(0, 4));
+		int monthDOB = Integer.parseInt(dateString.substring(5, 7));
+		int dayDOB = Integer.parseInt(dateString.substring(8, 10));
+		
+		LocalDate birthdateLocal = new LocalDate (yearDOB, monthDOB, dayDOB);
+		LocalDate now = new LocalDate();
+		Years age = Years.yearsBetween(birthdateLocal, now);
+		int ageInt = age.getYears();
+		System.out.println(ageInt);
+		
+		return ageInt;
 	}
-
 }

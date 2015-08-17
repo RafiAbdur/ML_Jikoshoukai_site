@@ -48,7 +48,7 @@ public class EmployeeController {
 	 */
 	@RequestMapping(value = "/", method = { RequestMethod.GET, RequestMethod.POST })
 	public String home(
-			@PageableDefault(page = 0, size = 20, direction = Direction.DESC, sort = "employeeId") Pageable pageable,
+			@PageableDefault(page = 0, size = 5, direction = Direction.DESC, sort = "employeeId") Pageable pageable,
 			Model model) {
 		// Add form class for searching employee
 		model.addAttribute("searchEmployeeForm", new SearchEmployeeForm());
@@ -73,7 +73,7 @@ public class EmployeeController {
 	 */
 	@RequestMapping(value = "/search", method = { RequestMethod.GET, RequestMethod.POST })
 	public String searchEmployee(
-			@PageableDefault(page = 0, size = 20, direction = Direction.DESC, sort = "employeeId") Pageable pageable,
+			@PageableDefault(page = 0, size = 5, direction = Direction.DESC, sort = "employeeId") Pageable pageable,
 			Model model, SearchEmployeeForm searchEmployeeForm, BindingResult bindingResult) {
 		Page<Employee> page = employeeService.search(searchEmployeeForm, pageable);
 		model.addAttribute("page", page);

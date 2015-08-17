@@ -54,17 +54,30 @@
 						<td>${f:h(employee.name)}</td>
 						<td>${f:h(employee.surNameKana)}</td>
 						<td>${f:h(employee.nameKana)}</td>
-						<td>${f:h(employee.gender)}</td>
+						<td>
+						<c:if test="${employee.gender == 'M'}">
+						Male
+						</c:if>
+						<c:if test="${employee.gender == 'F'}">
+						Female
+						</c:if>
+						</td>
 						<td>${f:h(employee.getAge())}</td>
 						<td>${f:h(employee.selfIntroduction)}</td>
+						<style>
+						.pull-left{
+						margin-right: 5px;
+						}
+						</style>
 						<td><form:form method="post"
-								action="${pageContext.request.contextPath}/edit">
+								action="${pageContext.request.contextPath}/edit" class="pull-left">
 								<input type="hidden" name="id"
 									value="${f:h(employee.employeeId)}" />
 								<input type="submit" value="編集"
 									class="btn btn-primary pull-left" />
-							</form:form> <form:form method="post"
-								action="${pageContext.request.contextPath}/delete">
+							</form:form> 
+							<form:form method="post"
+								action="${pageContext.request.contextPath}/delete"  class="pull-left">
 								<input type="hidden" name="id"
 									value="${f:h(employee.employeeId)}" />
 								<input type="submit" value="削除"
@@ -80,14 +93,6 @@
 			</div>
 		</c:when>
 	</c:choose>
-	<input type="submit" value="検索" /> <br>
-
-	<hr>
-
-	<a href="${pageContext.request.contextPath}/create">Add new
-		employee</a>
-
-	<h3>${f:h(searchResultMessage)}</h3>
 
 </div>
 <!-- /.container -->

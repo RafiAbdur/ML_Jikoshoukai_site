@@ -20,7 +20,7 @@
 
 <!-- Bootstrap Core CSS -->
 <link
-	href="${pageContext.request.contextPath}/resources/app/css/bootstrap.min.css"
+	href="${pageContext.request.contextPath}/resources/app/css/bootstrap.css"
 	rel="stylesheet">
 
 <!-- Custom CSS -->
@@ -43,7 +43,7 @@
 		<footer>
 			<div class="row">
 				<div class="col-lg-12">
-					<p>Copyright &copy; Your Website 2014</p>
+					<p>Copyright &copy; Monstar Lab, Inc. 2015</p>
 				</div>
 			</div>
 			<!-- /.row -->

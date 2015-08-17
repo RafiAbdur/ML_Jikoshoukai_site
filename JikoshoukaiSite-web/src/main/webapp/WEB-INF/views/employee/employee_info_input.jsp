@@ -43,6 +43,9 @@
 
 			<label>生年月日 </label>
 			<form:input path="birthdate" id="birthdate" />
+			<c:if test="${not empty dateErrorMessage}">
+				<span>${dateErrorMessage}</span>
+			</c:if>
 			<br>
 			<br>
 

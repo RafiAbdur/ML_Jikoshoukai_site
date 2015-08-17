@@ -121,5 +121,9 @@ public class Employee {
 	public void setSelfIntroduction(String selfIntroduction) {
 		this.selfIntroduction = selfIntroduction;
 	}
+	
+	public int getAge(){
+		return 88;
+	}
 
 }

@@ -19,17 +19,17 @@
 		</div>
 
 
-		<input type="submit" value="検索" class="btn btn-default" />
+		<input type="submit" value="検索" class="btn btn-info" />
 	</form:form>
+	<br>
 
-	<hr>
-
+	<br>
 	<a href="${pageContext.request.contextPath}/create"
 		class="btn btn-primary pull-right" role="button">Add employee</a>
 	<h3>Employee List</h3>
 	<c:choose>
 		<c:when test="${page != null && page.totalPages != 0}">
-			<h3>${f:h(searchResultMessage)}</h3>
+			<h5>${f:h(searchResultMessage)}</h5>
 			<table class="table table-striped">
 				<thead>
 					<tr>

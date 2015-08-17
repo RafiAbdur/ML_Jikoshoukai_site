@@ -1,4 +1,4 @@
-<div id="container">
+<div class="container">
 	<h3>${headerTitle}</h3>
 
 	<t:messagesPanel />

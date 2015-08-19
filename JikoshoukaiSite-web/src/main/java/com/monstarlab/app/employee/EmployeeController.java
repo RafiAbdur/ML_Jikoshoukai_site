@@ -46,7 +46,7 @@ public class EmployeeController {
 	 *            model
 	 * @return JSP link towards home page (U0010)
 	 */
-	@RequestMapping(value = "/", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(
 			@PageableDefault(page = 0, size = 5, direction = Direction.DESC, sort = "employeeId") Pageable pageable,
 			Model model) {
@@ -71,7 +71,7 @@ public class EmployeeController {
 	 *            model
 	 * @return JSP link towards home page (U0010)
 	 */
-	@RequestMapping(value = "/search", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public String searchEmployee(
 			@PageableDefault(page = 0, size = 5, direction = Direction.DESC, sort = "employeeId") Pageable pageable,
 			Model model, SearchEmployeeForm searchEmployeeForm, BindingResult bindingResult) {
